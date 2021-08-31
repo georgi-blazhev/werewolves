@@ -8,6 +8,7 @@ public class Main {
         game.printPlayers();
         game.startNightPhase();
         game.printLog();
+        game.startNightPhase();
     }
 
 }

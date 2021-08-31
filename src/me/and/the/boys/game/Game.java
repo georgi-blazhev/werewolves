@@ -9,29 +9,41 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Game {
+
     private Scanner scanner = new Scanner(System.in);
 
     private PriorityQueue<Player> nightPhase = new PriorityQueue<>();
     private PriorityQueue<Player> nightPhaseCopy = new PriorityQueue<>();
     private Map<String, String> dayPhase = new HashMap<>();
     private Map<String, String> eventLog = new HashMap<>();
+    private int nightTurns = 1;
 
     public void startNightPhase(){
         nightPhaseCopy.addAll(nightPhase);
         while (!nightPhaseCopy.isEmpty()) {
             Player player = nightPhaseCopy.poll();
+
+            if (!player.getRole().isRecurring() && player.getRole().isHasTurns() && player.isAlive()){
+                nightPhaseActions(player);
+                player.getRole().setHasTurns(false);
+            }
+
             if (player.getRole().isRecurring() && player.isAlive()) {
-                System.out.print(player.getName() + " what are you going to do: ");
-                scanner.nextLine();
-                String playerChoice = scanner.nextLine();
-                System.out.println(player.getName() + " chose " + playerChoice);
-                eventLog.put(player.getName(), playerChoice);
+                nightPhaseActions(player);
             }
             System.out.println();
         }
-
-
+        nightTurns++;
     }
+
+    private void nightPhaseActions(Player player) {
+        System.out.print(player.getName() + " what are you going to do: ");
+        scanner.nextLine();
+        String playerChoice = scanner.nextLine();
+        System.out.println(player.getName() + " chose " + playerChoice);
+        eventLog.put(player.getName(), playerChoice);
+    }
+
 
     public void setUpGame(){
 

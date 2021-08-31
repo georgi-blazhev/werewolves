@@ -9,13 +9,15 @@ public abstract class Role implements Comparable<Role>{
     private int points;
     private int priority;
     private boolean isRecurring;
+    private boolean hasTurns;
 
-    public Role(String name, String description, int points, int priority, boolean isRecurring) {
+    public Role(String name, String description, int points, int priority, boolean isRecurring, boolean hasTurns) {
         this.name = name;
         this.description = description;
         this.points = points;
         this.priority = priority;
         this.isRecurring = isRecurring;
+        this.hasTurns = hasTurns;
     }
 
     public void setRecurring(boolean recurring) {
@@ -48,6 +50,8 @@ public abstract class Role implements Comparable<Role>{
         return name;
     }
 
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -74,5 +78,13 @@ public abstract class Role implements Comparable<Role>{
 
     public boolean isRecurring() {
         return isRecurring;
+    }
+
+    public boolean isHasTurns() {
+        return hasTurns;
+    }
+
+    public void setHasTurns(boolean hasTurns) {
+        this.hasTurns = hasTurns;
     }
 }
